@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Mobile-CWK01</string>
+    <string name="app_name">CAR GAME</string>
+    <string name="advanced_level">Advanced Level</string>
+    <string name="hints">Hints</string>
+    <string name="activity_name">Enter Name Here</string>
+
+    <string name="identify_the_car_image">Identify the Car Image</string>
+    <string name="identify_the_car_make">Identify the Car Make</string>
+    <string name="my_activity_title">My Activity Title</string>
 </resources>

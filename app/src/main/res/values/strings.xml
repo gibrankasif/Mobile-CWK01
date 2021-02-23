@@ -7,4 +7,20 @@
     <string name="identify_the_car_image">Identify the Car Image</string>
     <string name="identify_the_car_make">Identify the Car Make</string>
     <string name="my_activity_title">My Activity Title</string>
+    <string name="identify">Identify</string>
+    <string name="car_images">car images</string>
+
+
+    <string-array name="carMake_array">
+        <item>Audi</item>
+        <item>Mercedes</item>
+        <item>BMW</item>
+        <item>Toyota</item>
+        <item>Jeep</item>
+        <item>Tesla</item>
+        <item>Honda</item>
+        <item>Nissan</item>
+    </string-array>
+
+
 </resources>

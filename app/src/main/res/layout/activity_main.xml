@@ -16,6 +16,7 @@
         android:layout_marginBottom="180dp"
         android:text="@string/identify_the_car_image"
         android:textSize="24sp"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_identify_make"
@@ -30,6 +31,7 @@
         android:layout_marginRight="16dp"
         android:text="@string/hints"
         android:textSize="24sp"
+        android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

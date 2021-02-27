@@ -12,6 +12,8 @@
         android:gravity="center"
         android:padding="16dp"
         android:text="something"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

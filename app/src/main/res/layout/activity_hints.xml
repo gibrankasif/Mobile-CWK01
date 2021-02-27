@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HintsActivity">
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="308dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/submit"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hints_textfield"
+        app:layout_constraintVertical_bias="0.53" />
+
+    <TextView
+        android:id="@+id/hints_textview"
+        android:layout_width="327dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:letterSpacing="0.2"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/hints_textfield"
+        android:layout_width="300dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="140dp"
+        android:ems="10"
+        android:hint="@string/hints_text_field"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hints_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

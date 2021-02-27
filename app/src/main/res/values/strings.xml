@@ -9,6 +9,8 @@
     <string name="my_activity_title">My Activity Title</string>
     <string name="identify">Identify</string>
     <string name="car_images">car images</string>
+    <string name="submit">Submit</string>
+    <string name="hints_text_field">Guess a letter?</string>
 
 
     <string-array name="carMake_array">

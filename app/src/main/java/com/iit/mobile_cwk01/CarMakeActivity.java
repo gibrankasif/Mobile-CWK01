@@ -25,7 +25,7 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
     private int gameProgress = 1;
     boolean roundFinish = true;
 
-    public Car[] cars;
+    private Car[] cars;
     private final List<Integer> previousCarList = new ArrayList<>();
 
 
@@ -93,16 +93,7 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
                 break;
             }
         }
-         /* Random rand = new Random();
-        int randomIndex = rand.nextInt(cars.length);
-        imageView.setImageResource(cars[randomIndex].getCarImg());
-        selectedCarImage = cars[randomIndex].getCarMake();*/
-        /*do{
-            nextImg = rand.nextInt(cars.length);}
-        while (nextImg == previousImg);
-                previousImg = nextImg;
-                imageView.setImageResource(cars[nextImg].getCarImg());
-                selectedCarImage = cars[nextImg].getCarMake();*/
+
     }
 
     @Override
@@ -136,7 +127,16 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
     }
 
 }
-
+ /* Random rand = new Random();
+        int randomIndex = rand.nextInt(cars.length);
+        imageView.setImageResource(cars[randomIndex].getCarImg());
+        selectedCarImage = cars[randomIndex].getCarMake();*/
+        /*do{
+            nextImg = rand.nextInt(cars.length);}
+        while (nextImg == previousImg);
+                previousImg = nextImg;
+                imageView.setImageResource(cars[nextImg].getCarImg());
+                selectedCarImage = cars[nextImg].getCarMake();*/
 
 //    ImageView imageView;
 //    Button identifyButton;

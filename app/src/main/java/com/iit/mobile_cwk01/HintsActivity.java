@@ -18,23 +18,26 @@ public class HintsActivity extends AppCompatActivity {
     private TextView displayHintsResult;
     private EditText letterInputField;
     private Button submitGuess;
-    private String guessLetter;
+    private TextView lifeCount;
     private String[] carMakes;
+
+    private int count = 0;
+    private String word;
+    private String underscore;
+    private String letterGuess;
 
     private final List<Integer> previousCarMakeList = new ArrayList<>();
 
-
-    private int count;
-    private String word;
-    private String asterisk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hints);
 
+        lifeCount = findViewById(R.id.score_life_pts);
         displayHintsResult = findViewById(R.id.hints_textview);
         letterInputField = findViewById(R.id.hints_textfield);
         submitGuess = findViewById(R.id.submit_button);
+
         carMakes = getIntent().getStringArrayExtra("carMakesArray");
 
         for(int i = 0; i < carMakes.length; i++) {
@@ -42,75 +45,79 @@ public class HintsActivity extends AppCompatActivity {
         }
 
         randomMake();
-        submitGuess.setOnClickListener(new View.OnClickListener() {
 
+        submitGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayToast(word);
                 if(letterInputField.getText().length() == 0) {
                     displayToast("Guess a letter!");
-                }else if(letterInputField.getText().length() > 1) {
-                    displayToast("Enter a single character!");
-                }else if(count < 7 && asterisk.contains("_")) {
-                        String guess = letterInputField.getText().toString().toUpperCase();
-                        randomHintGenerator(guess);
-                        displayHintsResult.setText(asterisk);
-
-                    }
                 }
-
+                else if(letterInputField.getText().length() > 1) {
+                    displayToast("Enter a single character!");
+                }
+                else if(count < 3 && underscore.contains("_")) {
+                    letterGuess = letterInputField.getText().toString().toUpperCase();
+                    randomHintGenerator(letterGuess);
+                    if (count == 3 || underscore.equals(word)){
+                        submitGuess.setText("Next");
+                    }
+                    if (count == 3 && !(underscore.equals(word))){
+                        displayToast("Wrong");
+                    }
+                    lifeCount.setText(stringMultiplier(" X ", count));
+                    displayHintsResult.setText(underscore);
+                }
+                else{
+                    randomMake();
+                    count = 0;
+                    lifeCount.setText("");
+                    submitGuess.setText("Submit");
+                }
+            }
         });
     }
+
     public void randomMake(){
         Random rand = new Random();
         int randomIndex = 0;
-        randomIndex = rand.nextInt(carMakes.length);
-        word = carMakes[(int) (Math.random() * carMakes.length)];
-        asterisk = multiply("_",word.length());
-        displayHintsResult.setText(asterisk);
+        while (true) {
+            randomIndex = rand.nextInt(carMakes.length);
+            if(previousCarMakeList.size() == carMakes.length){
+                displayHintsResult.setText("GAME OVER");
+                submitGuess.setEnabled(false);
+                break;
+            }
+
+            if (!previousCarMakeList.contains(randomIndex)) {
+                previousCarMakeList.add(randomIndex);
+                word = carMakes[randomIndex];
+                underscore = stringMultiplier("_", word.length());
+                displayHintsResult.setText(underscore);
+                break;
+            }
+        }
     }
 
     public void randomHintGenerator(String guess) {
-        String newasterisk = "";
+        String newUnderscore = "";
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) == guess.charAt(0)) {
-                newasterisk += guess.charAt(0);
-            } else if (asterisk.charAt(i) != '_') {
-                newasterisk += word.charAt(i);
+                newUnderscore += guess.charAt(0);
+            } else if (underscore.charAt(i) != '_') {
+                newUnderscore += word.charAt(i);
             } else {
-                newasterisk += "_";
+                newUnderscore += "_";
             }
-        }
-        if (asterisk.equals(newasterisk)) {
+        }if (underscore.equals(newUnderscore)) {
             count++;
         } else {
-            asterisk = newasterisk;
+            underscore = newUnderscore;
         }
-        if (asterisk.equals(word)) {
-            displayToast("Correct! You win! The word was " + word);
+        if (underscore.equals(word)) {
+            displayToast("Correct!");
         }
 
-
-
-
-
-
-//        while (true)
-//        {
-//            randomIndex = rand.nextInt(carMakes.length);
-//            if(previousCarMakeList.size() == carMakes.length)
-//            {
-//                displayToast("Finished");
-//                break;
-//            }
-//            if (!previousCarMakeList.contains(randomIndex))
-//            {
-//                previousCarMakeList.add(randomIndex);
-//                String randomMake = carMakes[randomIndex];
-//                displayHintsResult.setText(multiply(" _ ", randomMake.length()));
-//                break;
-//            }
-//        }
     }
 
     public void displayToast(String message) {
@@ -132,11 +139,29 @@ public class HintsActivity extends AppCompatActivity {
         toast.show();
 
     }
-    private static String multiply(String str, int n) {
-        StringBuilder sb = new StringBuilder();
+    private static String stringMultiplier(String str, int n) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            sb.append(str);
+            stringBuilder.append(str);
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 }
+
+
+//        while (true)
+//        {
+//            randomIndex = rand.nextInt(carMakes.length);
+//            if(previousCarMakeList.size() == carMakes.length)
+//            {
+//                displayToast("Finished");
+//                break;
+//            }
+//            if (!previousCarMakeList.contains(randomIndex))
+//            {
+//                previousCarMakeList.add(randomIndex);
+//                String randomMake = carMakes[randomIndex];
+//                displayHintsResult.setText(multiply(" _ ", randomMake.length()));
+//                break;
+//            }
+//        }

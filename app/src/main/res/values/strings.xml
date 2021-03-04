@@ -11,6 +11,10 @@
     <string name="car_images">car images</string>
     <string name="submit">Submit</string>
     <string name="hints_text_field">Guess a letter?</string>
+    <string name="life">LIFE:</string>
+    <string name="third_random_car_image">third random car image</string>
+    <string name="first_random_car_image">first random car image</string>
+    <string name="second_random_car_image">second random car image</string>
 
 
     <string-array name="carMake_array">

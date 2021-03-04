@@ -61,6 +61,7 @@
         android:layout_marginTop="92dp"
         android:text="@string/identify_the_car_make"
         android:textSize="24sp"
+        android:onClick="onClick"
         app:layout_constraintEnd_toStartOf="@+id/button_hints"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

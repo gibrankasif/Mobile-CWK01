@@ -45,6 +45,7 @@
         android:layout_marginBottom="180dp"
         android:text="@string/advanced_level"
         android:textSize="24sp"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

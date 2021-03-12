@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdvancedLevel">
+
+    <Button
+        android:id="@+id/advanced_button"
+        android:layout_width="308dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="28dp"
+        android:onClick="compareThreeCarAnswers"
+        android:text="@string/submit"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car3"
+        app:layout_constraintVertical_bias="0.604" />
+
+    <ImageView
+        android:id="@+id/advancedImgView_car3"
+        android:layout_width="188dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car2"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/advancedImgView_car2"
+        android:layout_width="188dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car1"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <EditText
+        android:id="@+id/advancedLevelTextField1"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="80dp"
+        android:ems="20"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/advancedImgView_car1"
+        android:layout_width="188dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <EditText
+        android:id="@+id/advancedLevelTextField2"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="172dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car2"
+        app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField1" />
+
+    <EditText
+        android:id="@+id/advancedLevelTextField3"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="136dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car3"
+        app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField2" />
+
+    <TextView
+        android:id="@+id/textView_rightAnswer1"
+        android:layout_width="121dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="#FF9800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
+        app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField1" />
+
+    <TextView
+        android:id="@+id/textView_rightAnswer2"
+        android:layout_width="121dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:textColor="#FF9800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
+        app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField2" />
+
+    <TextView
+        android:id="@+id/textView_rightAnswer3"
+        android:layout_width="121dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textColor="#FF9800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
+        app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 intent3.putExtra("carObjectArray", cars);
                 startActivity(intent3);
                 break;
+            case R.id.button_adv_level:
+                Intent intent4 = new Intent(MainActivity.this, AdvancedLevel.class);
+                intent4.putExtra("carMakesArray", carMakes);
+                intent4.putExtra("carObjectArray", cars);
+                startActivity(intent4);
+                break;
             default:
                 break;
         }

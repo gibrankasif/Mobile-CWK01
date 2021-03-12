@@ -3,6 +3,8 @@ package com.iit.mobile_cwk01;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CarMakeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Toast toast;
 
     private ImageView imageView;
     private Button identifyButton;
@@ -34,7 +37,6 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_make);
         this.setTitle("Guess the Car Make");
-
         cars = (Car[]) getIntent().getSerializableExtra("carObjectArray");
         imageView = findViewById(R.id.imageView_car);
 
@@ -107,7 +109,8 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void displayToast(String message) {
-        Toast toast = new Toast(getApplicationContext());
+        toast  = new Toast(getApplicationContext());
+
         View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
         TextView toastTextView = view.findViewById(R.id.textViewToast);
 
@@ -121,8 +124,32 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         }
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_SHORT);
+        //toast.show();
 
+        int toastDurationInMilliSeconds = 1000;
+
+        // Set the countdown to display the toast
+        CountDownTimer toastCountDown;
+        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1 /*Tick duration*/) {
+            public void onTick(long millisUntilFinished) {
+                toast.show();
+            }
+            public void onFinish() {
+                toast.cancel();
+            }
+        };
+
+        // Show the toast and starts the countdown
         toast.show();
+        toastCountDown.start();
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                toast.cancel();
+//            }
+//        }, seconds);
 
     }
 

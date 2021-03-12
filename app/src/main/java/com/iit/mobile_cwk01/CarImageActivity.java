@@ -80,7 +80,7 @@ public class CarImageActivity extends AppCompatActivity {
                     String b = B.getCarMake();
                     String c = C.getCarMake();
 
-                    if (!(a.equals(b)) || a.equals(c) || b.equals(c)) {
+                    if (!((a.equals(b)) || a.equals(c) || b.equals(c))) {
                         carButton1.setImageResource(A.getCarImg());
                         carButton2.setImageResource(B.getCarImg());
                         carButton3.setImageResource(C.getCarImg());

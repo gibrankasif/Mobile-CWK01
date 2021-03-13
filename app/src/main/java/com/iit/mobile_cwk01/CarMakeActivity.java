@@ -22,6 +22,14 @@ import java.util.Random;
 public class CarMakeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Toast toast;
 
+    private  static  final long START_TIME_IN_MILLIS = 20000;
+    private boolean timeOption = false;
+    private long timeRemainingInMillis = START_TIME_IN_MILLIS;
+    private  CountDownTimer gameTimer;
+    private TextView timerDisplay;
+
+    private Spinner spinner;
+
     private ImageView imageView;
     private Button identifyButton;
     private String selectedCarMake;
@@ -39,8 +47,9 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         this.setTitle("Guess the Car Make");
         cars = (Car[]) getIntent().getSerializableExtra("carObjectArray");
         imageView = findViewById(R.id.imageView_car);
+        timeOption = getIntent().getBooleanExtra("timerActivated", false);
 
-        Spinner spinner = (Spinner) findViewById(R.id.carMake_spinner);
+        spinner = (Spinner) findViewById(R.id.carMake_spinner);
         if (spinner != null) {
             spinner.setOnItemSelectedListener(this);
         }
@@ -48,33 +57,88 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+
+
+
+
         TextView textView = (TextView) findViewById(R.id.prgressView);
         textView.setText("PROGRESS: " + gameProgress + "/30");
 
         identifyButton = findViewById(R.id.identify_button);
+        if (timeOption){
+            startTimer();
+        }
+
         showRandomCarImage();
+
         identifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (roundFinish) {
-                    if (spinner.getSelectedItem().toString().equals(selectedCarMake)) {
-                        displayToast("Correct");
-                    } else {
-                        displayToast("Wrong");
-                        displayToast(selectedCarMake);
-                    }
-                    identifyButton.setText("Next");
-                    roundFinish=false;
+                   submitResponse();
                 }else{
                     showRandomCarImage();
                     gameProgress++;
                     textView.setText("PROGRESS: " + gameProgress + "/30");
                     identifyButton.setText("Identify");
                     roundFinish = true;
+                    if (timeOption){
+                        startTimer();
+                    }
                 }
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {                // when going back to the main menu
+        super.onDestroy();
+
+        if (timeOption) {         // only if the countdown toggle had been turned on
+            if (gameTimer != null) {
+                gameTimer.cancel();           // stopping the countdown running in the background
+            }
+        }
+    }
+
+    public void submitResponse(){
+        if (spinner.getSelectedItem().toString().equals(selectedCarMake)) {
+            displayToast("Correct");
+        } else {
+            displayToast("Wrong");
+            displayToast(selectedCarMake);
+        }
+        identifyButton.setText("Next");
+        roundFinish=false;
+        if(timeOption){
+            gameTimer.cancel();
+        }
+    }
+
+    private void startTimer() {
+        timerDisplay = findViewById(R.id.timeView_01);
+        timeRemainingInMillis = START_TIME_IN_MILLIS;
+
+
+        gameTimer = new CountDownTimer(timeRemainingInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int secondsRemaining =  (int) ((timeRemainingInMillis / 1000));
+                timerDisplay.setVisibility(View.VISIBLE);
+                timerDisplay.setText(Integer.toString(secondsRemaining));
+                timeRemainingInMillis = millisUntilFinished;
+            }
+
+            @Override
+            public void onFinish() {
+                timerDisplay.setText(Integer.toString(0));
+                submitResponse();
+            }
+        }.start();
+
+
+    }
+
 
     public void showRandomCarImage() {
         Random rand = new Random();
@@ -126,22 +190,22 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         toast.setDuration(Toast.LENGTH_SHORT);
         //toast.show();
 
-        int toastDurationInMilliSeconds = 1000;
-
-        // Set the countdown to display the toast
-        CountDownTimer toastCountDown;
-        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1 /*Tick duration*/) {
-            public void onTick(long millisUntilFinished) {
-                toast.show();
-            }
-            public void onFinish() {
-                toast.cancel();
-            }
-        };
+//        int toastDurationInMilliSeconds = 1000;
+//
+//        // Set the countdown to display the toast
+//        CountDownTimer toastCountDown;
+//        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1 /*Tick duration*/) {
+//            public void onTick(long millisUntilFinished) {
+//                toast.show();
+//            }
+//            public void onFinish() {
+//                toast.cancel();
+//            }
+//        };
 
         // Show the toast and starts the countdown
         toast.show();
-        toastCountDown.start();
+//        toastCountDown.start();
 
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {

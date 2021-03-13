@@ -6,44 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".HintsActivity">
 
+    <TextView
+        android:id="@+id/timeView_2"
+        android:layout_width="132dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="10dp"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_car"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/submit_button"
         android:layout_width="308dp"
         android:layout_height="79dp"
-        android:layout_marginBottom="100dp"
         android:text="@string/submit"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hints_textfield"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.451" />
 
     <TextView
         android:id="@+id/hints_textview"
-        android:layout_width="327dp"
-        android:layout_height="134dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="328dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:letterSpacing="0.2"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="42sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_hints" />
 
     <EditText
         android:id="@+id/hints_textfield"
         android:layout_width="300dp"
         android:layout_height="61dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
         android:hint="@string/hints_text_field"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hints_textview" />
 
@@ -58,10 +77,10 @@
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hints_textview"
+        app:layout_constraintEnd_toStartOf="@+id/timeView_2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/score_life_pts"
@@ -74,11 +93,18 @@
         android:textColorHighlight="#FF0000"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hints_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/score_life_label"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_hints"
+        android:layout_width="320dp"
+        android:layout_height="224dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

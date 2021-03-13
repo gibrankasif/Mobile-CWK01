@@ -3,6 +3,7 @@ package com.iit.mobile_cwk01;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,6 +15,12 @@ import java.util.List;
 import java.util.Random;
 
 public class CarImageActivity extends AppCompatActivity {
+    private static final long START_TIME_IN_MILLIS = 20000;
+    private boolean timeOption = false;
+    private long timeRemainingInMillis = START_TIME_IN_MILLIS;
+    private CountDownTimer gameTimer;
+    private TextView timerDisplay;
+
     private ImageButton carButton1;
     private ImageButton carButton2;
     private ImageButton carButton3;
@@ -44,9 +51,13 @@ public class CarImageActivity extends AppCompatActivity {
         carImgMake = findViewById(R.id.carMake_textview);
 
         cars = (Car[]) getIntent().getSerializableExtra("carObjectArray");
+        timeOption = getIntent().getBooleanExtra("timerActivated", false);
 
 
         showRandomCarImages();
+        if (timeOption){
+            startTimer();
+        }
 
         carImgMake.setText(displayedCarMakes[random.nextInt(displayedCarMakes.length)]);
         correctMake = carImgMake.getText().toString();
@@ -128,6 +139,27 @@ public class CarImageActivity extends AppCompatActivity {
 
     }
 
+    private void startTimer() {
+        timerDisplay = findViewById(R.id.timeView_3);
+        timeRemainingInMillis = START_TIME_IN_MILLIS;
+
+
+        gameTimer = new CountDownTimer(timeRemainingInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int secondsRemaining =  (int) ((timeRemainingInMillis / 1000));
+                timerDisplay.setVisibility(View.VISIBLE);
+                timerDisplay.setText(Integer.toString(secondsRemaining));
+                timeRemainingInMillis = millisUntilFinished;
+            }
+
+            @Override
+            public void onFinish() {
+                timerDisplay.setText(Integer.toString(0));
+                showRandomCarImages();
+            }
+        }.start();
+    }
 
     public void displayToast(String message) {
         Toast toast = new Toast(getApplicationContext());

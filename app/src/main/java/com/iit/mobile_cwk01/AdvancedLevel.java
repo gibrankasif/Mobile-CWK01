@@ -34,6 +34,8 @@ public class AdvancedLevel extends AppCompatActivity {
     List<Integer> remainingCarList = new ArrayList<>();
     int count = 0;
     int anotherCount = 0;
+    int totalAdvancedLevelScore = 0;
+    int currentCompletion = 0;
     ArrayList<String> correctInputsList = new ArrayList<>(3);
 
     int randomIndexA = 0;
@@ -71,25 +73,31 @@ public class AdvancedLevel extends AppCompatActivity {
             if (roundFinish) {
                 correctInputsList.clear();
 
-                answerCompare(randomIndexA, carField01, 0);
-                answerCompare(randomIndexB, carField02, 1);
-                answerCompare(randomIndexC, carField03, 2);
+                answerCompare(randomIndexA, carField01);
+                answerCompare(randomIndexB, carField02);
+                answerCompare(randomIndexC, carField03);
 
                 anotherCount++;
                 if(correctInputsList.size() == 3 || anotherCount == 3){
                     enableAllFields(false);
                     advancedSubmitButton.setText("Next");
                     roundFinish = false;
+
+                    addCurrentScore();
+
                     if (correctInputsList.size() == 3){
                         displayToast("CORRECT!");
                     } else{
                         displayToast("WRONG!");
+                        displayToast(totalAdvancedLevelScore + " \n  "+ currentCompletion);
                         presentCorrectAnswers();
                     }
                 }
 
             }else {
                 anotherCount = 0;
+                currentCompletion = 0;
+
                 correctAnswer01.setText(null);
                 correctAnswer02.setText(null);
                 correctAnswer03.setText(null);
@@ -203,7 +211,22 @@ public class AdvancedLevel extends AppCompatActivity {
         }
     }
 
-    public void answerCompare(int index, EditText field, int slot){
+    public void addCurrentScore() {
+        if ((compareInputAnswer(randomIndexA, carField01))){
+            totalAdvancedLevelScore++;
+            currentCompletion++;
+        }
+        if ((compareInputAnswer(randomIndexB, carField02))){
+            totalAdvancedLevelScore++;
+            currentCompletion++;
+        }
+        if ((compareInputAnswer(randomIndexC, carField03))){
+            totalAdvancedLevelScore++;
+            currentCompletion++;
+        }
+    }
+
+    public void answerCompare(int index, EditText field){
         if (!compareInputAnswer(index, field)) {
             field.setTextColor(ContextCompat.getColor(this, R.color.Red));
         } else {

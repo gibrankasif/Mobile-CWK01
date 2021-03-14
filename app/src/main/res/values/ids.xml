@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="advancedImgView_car3" type="id" />
+    <item name="advancedImgView_car2" type="id" />
+    <item name="advancedImgView_car1" type="id" />
+    <item name="advancedLevelTextField1" type="id" />
+    <item name="advancedLevelTextField2" type="id" />
+    <item name="advancedLevelTextField3" type="id" />
+    <item name="textView_rightAnswer2" type="id" />
+    <item name="textView_rightAnswer1" type="id" />
+    <item name="textView_rightAnswer3" type="id" />
+</resources>

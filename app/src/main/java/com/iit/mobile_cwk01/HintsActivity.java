@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 public class HintsActivity extends AppCompatActivity {
-    private  static  final long START_TIME_IN_MILLIS = 20000;
+    private static final long START_TIME_IN_MILLIS = 20000;
     private boolean timeOption = false;
     private long timeRemainingInMillis = START_TIME_IN_MILLIS;
     private  CountDownTimer gameTimer;
@@ -65,7 +65,6 @@ public class HintsActivity extends AppCompatActivity {
         submitGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                displayToast(word);
                 submitInputResponse();
             }
         });
@@ -91,6 +90,12 @@ public class HintsActivity extends AppCompatActivity {
         } else if(count < 3 && underscore.contains("_")) {
             letterGuess = letterInputField.getText().toString().toUpperCase();
             randomHintGenerator(letterGuess);
+            if (count <= 3){
+                if(timeOption){
+                gameTimer.cancel();
+                startTimer();
+            }
+            }
             if (count == 3 || underscore.equals(word)){
                 submitGuess.setText("Next");
                 if(timeOption){
@@ -136,9 +141,14 @@ public class HintsActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timerDisplay.setText(Integer.toString(0));
-                letterInputField.setVisibility(View.INVISIBLE);
-                letterInputField.setText("X");
-                count = 2;
+//                letterInputField.setVisibility(View.INVISIBLE);
+                if (letterInputField.getText().toString().equals(null) || letterInputField.getText().toString().equals("")){
+                letterInputField.setText("X");}else{
+                    letterInputField.setText(letterInputField.getText().toString());
+                }
+
+//                count = 2;
+
                 submitInputResponse();
             }
         }.start();

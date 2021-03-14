@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CarImageActivity extends AppCompatActivity {
-    private static final long START_TIME_IN_MILLIS = 20000;
+    private  static  final long START_TIME_IN_MILLIS = 20000;
     private boolean timeOption = false;
     private long timeRemainingInMillis = START_TIME_IN_MILLIS;
     private CountDownTimer gameTimer;
@@ -25,15 +26,16 @@ public class CarImageActivity extends AppCompatActivity {
     private ImageButton carButton2;
     private ImageButton carButton3;
     private TextView carImgMake;
+    private Button imageSubmitButton;
+    private String selectedCarMake = "";
     int randomIndexA = 0;
     int randomIndexB = 0;
     int randomIndexC = 0;
-
+    boolean roundFinish = true;
     List<Integer> remainingCarList = new ArrayList<>();
 
     private Car[] cars;
     private String[] displayedCarMakes = {"Audi", "Mercedes", "BMW"};
-    String selectedCarMake;
     String correctMake;
     Random random = new Random();
     int count = 0;
@@ -49,6 +51,7 @@ public class CarImageActivity extends AppCompatActivity {
         carButton2 = findViewById(R.id.carimageButton2);
         carButton3 = findViewById(R.id.carimageButton3);
         carImgMake = findViewById(R.id.carMake_textview);
+        imageSubmitButton = findViewById(R.id.carimage_button);
 
         cars = (Car[]) getIntent().getSerializableExtra("carObjectArray");
         timeOption = getIntent().getBooleanExtra("timerActivated", false);
@@ -62,6 +65,82 @@ public class CarImageActivity extends AppCompatActivity {
         carImgMake.setText(displayedCarMakes[random.nextInt(displayedCarMakes.length)]);
         correctMake = carImgMake.getText().toString();
        // carMakes = getIntent().getStringArrayExtra("carMakesArray");
+    }
+    @Override
+    protected void onDestroy() {                // when going back to the main menu
+        super.onDestroy();
+
+        if (timeOption) {         // only if the countdown toggle had been turned on
+            if (gameTimer != null) {
+                gameTimer.cancel();           // stopping the countdown running in the background
+            }
+        }
+    }
+    public void submitCorrectCarImage(View view) {
+        if (roundFinish) {
+            startCarImageGame();
+        }
+        else{
+            carButton1.setBackgroundResource(0);
+            carButton2.setBackgroundResource(0);
+            carButton3.setBackgroundResource(0);
+            carImgMake.setText(displayedCarMakes[random.nextInt(displayedCarMakes.length)]);
+            correctMake = carImgMake.getText().toString();
+            selectedCarMake = "";
+            showRandomCarImages();
+
+            imageSubmitButton.setText("Submit");
+            roundFinish = true;
+
+            if (timeOption){
+                startTimer();
+            }
+        }
+    }
+
+    public void startCarImageGame(){
+        if (selectedCarResult(randomIndexA)) {
+            carButton1.setBackgroundResource(R.drawable.transparent_bg_bordered_button_correct);
+            carButton2.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            carButton3.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            if(!(selectedCarMake.equals(correctMake))){
+                carButton1.setBackgroundResource(R.drawable.transparent_bg_bordered_button_answer);
+                displayToast("WRONG!");
+
+            }else{
+                displayToast("CORRECT!");
+
+            }
+        }  else if (selectedCarResult(randomIndexB)) {
+            carButton1.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            carButton2.setBackgroundResource(R.drawable.transparent_bg_bordered_button_correct);
+            carButton3.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            if(!(selectedCarMake.equals(correctMake))){
+                carButton2.setBackgroundResource(R.drawable.transparent_bg_bordered_button_answer);
+                displayToast("WRONG!");
+
+            }else{
+                displayToast("CORRECT!");
+
+            }
+        }  else if (selectedCarResult(randomIndexC)) {
+            carButton1.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            carButton2.setBackgroundResource(R.drawable.transparent_bg_bordered_button_wrong);
+            carButton3.setBackgroundResource(R.drawable.transparent_bg_bordered_button_correct);
+            if(!(selectedCarMake.equals(correctMake))){
+                carButton3.setBackgroundResource(R.drawable.transparent_bg_bordered_button_answer);
+                displayToast("WRONG!");
+
+            }else{
+                displayToast("CORRECT!");
+
+            }
+        }
+        roundFinish = false;
+        imageSubmitButton.setText("Next");
+        if(timeOption){
+            gameTimer.cancel();
+        }
     }
 
     public void showRandomCarImages() {
@@ -81,24 +160,24 @@ public class CarImageActivity extends AppCompatActivity {
             randomIndexB = rand1.nextInt(cars.length);
             randomIndexC = rand2.nextInt(cars.length);
 
-            Car A = cars[randomIndexA];
-            Car B = cars[randomIndexB];
-            Car C = cars[randomIndexC];
+            Car carA = cars[randomIndexA];
+            Car carB = cars[randomIndexB];
+            Car carC = cars[randomIndexC];
 
             if (!(remainingCarList.contains(randomIndexA) || remainingCarList.contains(randomIndexB) || remainingCarList.contains(randomIndexC))) {
                 if (!((randomIndexA == randomIndexB) || (randomIndexA == randomIndexC) || (randomIndexC == randomIndexB))) {
-                    String a = A.getCarMake();
-                    String b = B.getCarMake();
-                    String c = C.getCarMake();
+                    String carMakeA = carA.getCarMake();
+                    String carMakeB = carB.getCarMake();
+                    String carMakeC = carC.getCarMake();
 
-                    if (!((a.equals(b)) || a.equals(c) || b.equals(c))) {
-                        carButton1.setImageResource(A.getCarImg());
-                        carButton2.setImageResource(B.getCarImg());
-                        carButton3.setImageResource(C.getCarImg());
+                    if (!((carMakeA.equals(carMakeB)) || carMakeA.equals(carMakeC) || carMakeB.equals(carMakeC))) {
+                        carButton1.setImageResource(carA.getCarImg());
+                        carButton2.setImageResource(carB.getCarImg());
+                        carButton3.setImageResource(carC.getCarImg());
 
-                        displayedCarMakes[0] = A.getCarMake();
-                        displayedCarMakes[1] = B.getCarMake();
-                        displayedCarMakes[2] = C.getCarMake();
+                        displayedCarMakes[0] = carA.getCarMake();
+                        displayedCarMakes[1] = carB.getCarMake();
+                        displayedCarMakes[2] = carC.getCarMake();
 
                         remainingCarList.add(randomIndexA);
                         remainingCarList.add(randomIndexB);
@@ -112,33 +191,49 @@ public class CarImageActivity extends AppCompatActivity {
         }
     }
     public void selectCarImage(View view) {
+        carButton1.setBackgroundResource(0);
+        carButton2.setBackgroundResource(0);
+        carButton3.setBackgroundResource(0);
         if (view.getId() == R.id.carimageButton1){
-            if (cars[randomIndexA].getCarMake().equals(correctMake)){
-                displayToast("Correct");
-            }else{
-                displayToast("Wrong");
-            }showRandomCarImages();
+            carButton1.setBackgroundResource(R.drawable.transparent_bg_bordered_button_selected);
+            selectedCarMake = cars[randomIndexA].getCarMake();
         }
-        else if (view.getId() == R.id.carimageButton2){
-            if (cars[randomIndexB].getCarMake().equals(correctMake)){
-                displayToast("Correct");
-            }else{
-                displayToast("Wrong");
-            }showRandomCarImages();
-        }
+         else if (view.getId() == R.id.carimageButton2){
 
-        else if (view.getId() == R.id.carimageButton3){
-            if (cars[randomIndexC].getCarMake().equals(correctMake)){
-                displayToast("Correct");
-            }else{
-                displayToast("Wrong");
-            }showRandomCarImages();
-        }
-        carImgMake.setText(displayedCarMakes[random.nextInt(displayedCarMakes.length)]);
-        correctMake = carImgMake.getText().toString();
+            carButton2.setBackgroundResource(R.drawable.transparent_bg_bordered_button_selected);
+            selectedCarMake = cars[randomIndexB].getCarMake();
 
+        }
+         else if (view.getId() == R.id.carimageButton3){
+            carButton3.setBackgroundResource(R.drawable.transparent_bg_bordered_button_selected);
+            selectedCarMake = cars[randomIndexC].getCarMake();
+
+        }
+    }
+    public boolean selectedCarResult(int randomIndex){
+        return cars[randomIndex].getCarMake().equals(correctMake);
     }
 
+
+    public void displayToast(String message) {
+        Toast toast = new Toast(getApplicationContext());
+        View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
+        TextView toastTextView = view.findViewById(R.id.textViewToast);
+
+        toastTextView.setText(message);
+        if (message.equals("CORRECT!")) {
+            toastTextView.setBackgroundResource(R.drawable.toast_correct);
+        }else if(message.equals("WRONG!")){
+            toastTextView.setBackgroundResource(R.drawable.toast_wrong);
+        }else{
+            toastTextView.setBackgroundResource(R.drawable.toast_answer);
+        }
+        toast.setView(view);
+        toast.setDuration(Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
     private void startTimer() {
         timerDisplay = findViewById(R.id.timeView_3);
         timeRemainingInMillis = START_TIME_IN_MILLIS;
@@ -156,31 +251,38 @@ public class CarImageActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timerDisplay.setText(Integer.toString(0));
-                showRandomCarImages();
+                startCarImageGame();
+
             }
         }.start();
     }
 
-    public void displayToast(String message) {
-        Toast toast = new Toast(getApplicationContext());
-        View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
-        TextView toastTextView = view.findViewById(R.id.textViewToast);
-
-        toastTextView.setText(message);
-        if (message.equals("Correct")) {
-            toastTextView.setBackgroundResource(R.drawable.toast_correct);
-        }else if(message.equals("Wrong")){
-            toastTextView.setBackgroundResource(R.drawable.toast_wrong);
-        }else{
-            toastTextView.setBackgroundResource(R.drawable.toast_answer);
-        }
-        toast.setView(view);
-        toast.setDuration(Toast.LENGTH_SHORT);
-
-        toast.show();
-
-    }
-
+//    public void selectCarImage(View view) {
+//        if (view.getId() == R.id.carimageButton1){
+//            if (cars[randomIndexA].getCarMake().equals(correctMake)){
+//                displayToast("CORRECT!");
+//            }else{
+//                displayToast("WRONG!");
+//            }
+//        }
+//        else if (view.getId() == R.id.carimageButton2){
+//            if (cars[randomIndexB].getCarMake().equals(correctMake)){
+//                displayToast("CORRECT!");
+//            }else{
+//                displayToast("WRONG!");
+//            }
+//        }
+//
+//        else if (view.getId() == R.id.carimageButton3){
+//            if (cars[randomIndexC].getCarMake().equals(correctMake)){
+//                displayToast("CORRECT!");
+//            }else{
+//                displayToast("WRONG!");
+//            }
+//        }
+//        carImgMake.setText(displayedCarMakes[random.nextInt(displayedCarMakes.length)]);
+//        correctMake = carImgMake.getText().toString();
+//    }
 
     /*
             if(!(previousCarMakeList.contains(randomIndexA) || previousCarMakeList.contains(randomIndexB) || previousCarMakeList.contains(randomIndexC)) ){

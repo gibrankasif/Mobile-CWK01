@@ -2,6 +2,8 @@ package com.iit.mobile_cwk01;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -20,12 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 public class CarMakeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Toast toast;
 
-    private  static  final long START_TIME_IN_MILLIS = 20000;
+    private static final long START_TIME_IN_MILLIS = 20000;
     private boolean timeOption = false;
     private long timeRemainingInMillis = START_TIME_IN_MILLIS;
-    private  CountDownTimer gameTimer;
+    private CountDownTimer gameTimer;
     private TextView timerDisplay;
 
     private Spinner spinner;
@@ -49,7 +50,7 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         imageView = findViewById(R.id.imageView_car);
         timeOption = getIntent().getBooleanExtra("timerActivated", false);
 
-        spinner = (Spinner) findViewById(R.id.carMake_spinner);
+        spinner = findViewById(R.id.carMake_spinner);
         if (spinner != null) {
             spinner.setOnItemSelectedListener(this);
         }
@@ -103,9 +104,10 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
 
     public void submitResponse(){
         if (spinner.getSelectedItem().toString().equals(selectedCarMake)) {
-            displayToast("Correct");
+            displayToast("CORRECT!");
+            displayMessage("CORRECT!");
         } else {
-            displayToast("Wrong");
+            displayToast("WRONG!");
             displayToast(selectedCarMake);
         }
         identifyButton.setText("Next");
@@ -135,8 +137,6 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
                 submitResponse();
             }
         }.start();
-
-
     }
 
 
@@ -172,8 +172,21 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    public void displayMessage(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
     public void displayToast(String message) {
-        toast  = new Toast(getApplicationContext());
+        Toast toast = new Toast(getApplicationContext());
 
         View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
         TextView toastTextView = view.findViewById(R.id.textViewToast);

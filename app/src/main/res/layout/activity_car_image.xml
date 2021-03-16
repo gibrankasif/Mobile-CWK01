@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
     tools:context=".CarImageActivity">
 
     <Button
@@ -11,9 +12,10 @@
         android:layout_width="308dp"
         android:layout_height="79dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/submit"
-        android:textSize="24sp"
         android:onClick="submitCorrectCarImage"
+        android:text="@string/next"
+        android:textSize="24sp"
+        app:backgroundTint="#E8165D"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -21,7 +23,8 @@
         app:layout_constraintTop_toBottomOf="@+id/carimageButton3"
         app:layout_constraintVertical_bias="0.7"
         app:rippleColor="#00FFFFFF"
-        app:strokeColor="#FFFFFF" />
+        app:strokeColor="#970C3D"
+        app:strokeWidth="3dp" />
 
     <TextView
         android:id="@+id/timeView_3"
@@ -29,32 +32,37 @@
         android:layout_height="30dp"
         android:cursorVisible="false"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <TextView
         android:id="@+id/carMake_textview"
         android:layout_width="203dp"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:textSize="42sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
     <ImageButton
         android:id="@+id/carimageButton1"
-        android:layout_width="220dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/first_random_car_image"
         android:onClick="selectCarImage"
@@ -67,30 +75,30 @@
 
     <ImageButton
         android:id="@+id/carimageButton2"
-        android:layout_width="220dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="fitCenter"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/second_random_car_image"
         android:onClick="selectCarImage"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/carimageButton1"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/second_random_car_image" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
         android:id="@+id/carimageButton3"
-        android:layout_width="220dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/third_random_car_image"
-        android:scaleType="fitCenter"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/third_random_car_image"
         android:onClick="selectCarImage"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/carimageButton2"
         tools:srcCompat="@tools:sample/avatars" />

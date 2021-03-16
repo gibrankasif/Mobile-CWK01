@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
+    tools:context=".CarImageActivity">
+
+    <Button
+        android:id="@+id/carimage_button"
+        android:layout_width="308dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="4dp"
+        android:onClick="submitCorrectCarImage"
+        android:text="@string/next"
+        android:textSize="24sp"
+        app:backgroundTint="#E8165D"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carimageButton2"
+        app:layout_constraintVertical_bias="0.488"
+        app:rippleColor="#00FFFFFF"
+        app:strokeColor="#970C3D"
+        app:strokeWidth="3dp" />
+
+    <TextView
+        android:id="@+id/timeView_3"
+        android:layout_width="66dp"
+        android:layout_height="30dp"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toEndOf="@+id/carMake_textview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041" />
+
+    <TextView
+        android:id="@+id/carMake_textview"
+        android:layout_width="203dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginLeft="276dp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/carimageButton1"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/first_random_car_image"
+        android:onClick="selectCarImage"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/carimageButton2"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/carimageButton2"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/second_random_car_image"
+        android:onClick="selectCarImage"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/carimageButton3"
+        android:layout_width="230dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/third_random_car_image"
+        android:onClick="selectCarImage"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toEndOf="@+id/carimageButton2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.313"
+        tools:srcCompat="@tools:sample/avatars" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

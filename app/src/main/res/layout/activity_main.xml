@@ -11,7 +11,7 @@
         android:id="@+id/button_identify_image"
         android:layout_width="300dp"
         android:layout_height="90dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:onClick="onClick"
         android:text="@string/identify_the_car_image"
         android:textColor="#9C27B0"
@@ -21,15 +21,15 @@
         app:backgroundTint="#22FFCB"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_identify_make" />
+        app:layout_constraintTop_toBottomOf="@+id/button_hints" />
 
     <Button
         android:id="@+id/button_hints"
         android:layout_width="300dp"
         android:layout_height="90dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:onClick="onClick"
         android:text="@string/hints"
         android:textColor="#9C27B0"
@@ -39,15 +39,15 @@
         app:backgroundTint="#22FFCB"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_identify_image" />
+        app:layout_constraintTop_toBottomOf="@+id/button_identify_make" />
 
     <Button
         android:id="@+id/button_adv_level"
         android:layout_width="300dp"
         android:layout_height="90dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:onClick="onClick"
         android:text="@string/advanced_level"
         android:textColor="#9C27B0"
@@ -58,9 +58,9 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_hints"
+        app:layout_constraintTop_toBottomOf="@+id/button_identify_image"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -88,7 +88,7 @@
         android:fontFamily="sans-serif-black"
         android:scrollbarStyle="outsideInset"
         android:text="  TIMER"
-        android:textColor="#FFFFFF"
+        android:textColor="#FFFF00"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

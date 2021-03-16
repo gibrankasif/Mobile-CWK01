@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
+    android:label="@string/my_activity_title"
+
+    tools:context=".CarMakeActivity">
+
+    <ImageView
+        android:id="@+id/imageView_car"
+        android:layout_width="398dp"
+        android:layout_height="262dp"
+        android:contentDescription="@string/car_images"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.577" />
+
+    <Button
+        android:id="@+id/identify_button"
+        android:layout_width="313dp"
+        android:layout_height="81dp"
+        android:text="@string/identify"
+        android:textSize="24sp"
+        app:backgroundTint="#E8165D"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toEndOf="@+id/imageView_car"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.706"
+        app:strokeColor="#970C3D"
+        app:strokeWidth="3dp" />
+
+    <Spinner
+        android:id="@+id/carMake_spinner"
+        android:layout_width="303dp"
+        android:layout_height="58dp"
+        android:background="@drawable/spinner_bg"
+        android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+        android:popupElevation="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/identify_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toEndOf="@+id/imageView_car"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.844" />
+
+    <TextView
+        android:id="@+id/progressView"
+        android:layout_width="179dp"
+        android:layout_height="42dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/timeView_01"
+        android:layout_width="112dp"
+        android:layout_height="54dp"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintStart_toEndOf="@+id/progressView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

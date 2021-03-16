@@ -15,6 +15,7 @@
     <string name="third_random_car_image">third random car image</string>
     <string name="first_random_car_image">first random car image</string>
     <string name="second_random_car_image">second random car image</string>
+    <string name="next">Next</string>
 
 
     <string-array name="carMake_array">
@@ -22,10 +23,8 @@
         <item>Mercedes</item>
         <item>BMW</item>
         <item>Toyota</item>
-        <item>Jeep</item>
+        <item>Ferrari</item>
         <item>Tesla</item>
-        <item>Honda</item>
-        <item>Nissan</item>
     </string-array>
 
 

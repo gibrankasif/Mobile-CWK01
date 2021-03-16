@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_screen"
     tools:context=".AdvancedLevel">
 
     <ScrollView
@@ -21,40 +22,36 @@
             tools:context=".AdvancedLevel">
 
             <TextView
-                android:id="@+id/advanced_life_label"
+                android:id="@+id/advanced_life_score_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/life"
-                android:textColor="#000000"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:text="00"
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/advancedImgView_car1"
-                app:layout_constraintEnd_toStartOf="@+id/timeView_2"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageViewStar"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.02" />
 
             <TextView
                 android:id="@+id/advanced_life_pts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="167dp"
-                android:layout_marginRight="167dp"
-                android:textColor="#FF0000"
+                android:textColor="#FFFFFF"
                 android:textColorHighlight="#FF0000"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/timeView_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewStar"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/advanced_life_label"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/imageViewChances"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
 
             <TextView
                 android:id="@+id/timeView_4"
@@ -62,14 +59,16 @@
                 android:layout_height="42dp"
                 android:cursorVisible="false"
                 android:gravity="center"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.899"
+                app:layout_constraintHorizontal_bias="0.047"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.019" />
+                app:layout_constraintVertical_bias="0.02" />
 
             <Button
                 android:id="@+id/advanced_button"
@@ -77,21 +76,25 @@
                 android:layout_height="79dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="28dp"
+                android:background="#FFFFFF"
                 android:text="@string/submit"
                 android:textSize="24sp"
+                app:backgroundTint="#E8165D"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.495"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car3"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                app:strokeColor="#970C3D"
+                app:strokeWidth="3dp" />
 
             <ImageView
                 android:id="@+id/advancedImgView_car3"
                 android:layout_width="188dp"
                 android:layout_height="154dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginLeft="28dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car2"
@@ -101,45 +104,51 @@
                 android:id="@+id/advancedImgView_car2"
                 android:layout_width="188dp"
                 android:layout_height="154dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginLeft="28dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/advancedImgView_car1"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <EditText
-                android:id="@+id/advancedLevelTextField1"
-                android:layout_width="165dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="84dp"
-                android:ems="20"
-                android:inputType="textPersonName"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.466"
-                app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:id="@+id/advancedImgView_car1"
                 android:layout_width="188dp"
                 android:layout_height="154dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginLeft="28dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="72dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:contentDescription="TODO" />
+
+            <EditText
+                android:id="@+id/advancedLevelTextField1"
+                android:layout_width="165dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="96dp"
+                android:background="#FFFFFF"
+                android:ems="20"
+                android:hint="Guess car make?"
+                android:inputType="textPersonName"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/advancedLevelTextField2"
                 android:layout_width="165dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="132dp"
+                android:background="#FFFFFF"
                 android:ems="10"
+                android:hint="Guess car make?"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toEndOf="@+id/advancedImgView_car2"
@@ -150,9 +159,11 @@
                 android:layout_width="165dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="128dp"
+                android:background="#FFFFFF"
                 android:ems="10"
+                android:hint="Guess car make?"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toEndOf="@+id/advancedImgView_car3"
@@ -166,8 +177,9 @@
                 android:layout_marginLeft="38dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:textColor="#FF9800"
+                android:textColor="#F1E500"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.055"
                 app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
@@ -181,8 +193,9 @@
                 android:layout_marginLeft="38dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:textColor="#FF9800"
+                android:textColor="#F1E500"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
@@ -196,12 +209,39 @@
                 android:layout_marginLeft="38dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:textColor="#FF9800"
+                android:textColor="#F1E500"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/advancedImgView_car1"
                 app:layout_constraintTop_toBottomOf="@+id/advancedLevelTextField3" />
+
+            <ImageView
+                android:id="@+id/imageViewStar"
+                android:layout_width="48dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginRight="64dp"
+                android:src="@drawable/ic_baseline_star_24"
+                app:tint="#FFD740"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
+
+            <ImageView
+                android:id="@+id/imageViewChances"
+                android:layout_width="48dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_baseline_favorite_24"
+                app:tint="#FF0000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewStar"
+                app:layout_constraintHorizontal_bias="0.482"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.017" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

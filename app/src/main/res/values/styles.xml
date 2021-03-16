@@ -5,5 +5,16 @@
         <item name="backgroundColor">
             #FF00FF00
         </item>
+        <item name="android:windowAnimationStyle">@style/dialog_animation</item>
     </style>
+
+    <style name="dialog_animation">
+        <item name="android:windowEnterAnimation">
+            @android:anim/fade_in
+        </item>
+        <item name="android:windowExitAnimation">
+            @android:anim/fade_out
+        </item>
+    </style>
+
 </resources>

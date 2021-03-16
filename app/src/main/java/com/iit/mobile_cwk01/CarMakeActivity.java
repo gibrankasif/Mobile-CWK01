@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,27 +16,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class CarMakeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    private static final long START_TIME_IN_MILLIS = 20000;
+/**Following first five variables are only made use of, if the timer option was clicked on back in
+ * the homescreen
+* */
+    private static final long START_TIME_MILLIS = 20000;
     private boolean timeOption = false;
-    private long timeRemainingInMillis = START_TIME_IN_MILLIS;
+    private long timeRemainingInMillis = START_TIME_MILLIS;
     private CountDownTimer gameTimer;
     private TextView timerDisplay;
 
     private Spinner spinner;
 
-    private ImageView imageView;
+    private ImageView carMakeImageView;
     private Button identifyButton;
-    private String selectedCarMake;
-    private int gameProgress = 1;
+    private String selectedCarMake; //Refers to the selected random answer
+    private int gameProgress = 1; //Current game round, the user will be in.
     boolean roundFinish = true;
+
 
     private Car[] cars;
     private final List<Integer> previousCarList = new ArrayList<>();
@@ -45,42 +48,50 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_make);
-        this.setTitle("Guess the Car Make");
+
+        this.setTitle("GUESS THE CAR MAKE");
+        //Borrowing the array of car objects which was initialized in the main activity and is sent through the intent itself.
         cars = (Car[]) getIntent().getSerializableExtra("carObjectArray");
-        imageView = findViewById(R.id.imageView_car);
+        //Another var, borrowed from the main activity which is used to determine if the timer should be activated or not.
         timeOption = getIntent().getBooleanExtra("timerActivated", false);
+
+        carMakeImageView = findViewById(R.id.imageView_car);
 
         spinner = findViewById(R.id.carMake_spinner);
         if (spinner != null) {
             spinner.setOnItemSelectedListener(this);
         }
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.carMake_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Assigned a custom layout to single list item layout of the spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.carMake_array, R.layout.spinner_single_list);
+        adapter.setDropDownViewResource(R.layout.spinner_style_whole);
         spinner.setAdapter(adapter);
 
-
-
-
-
-        TextView textView = (TextView) findViewById(R.id.prgressView);
-        textView.setText("PROGRESS: " + gameProgress + "/30");
+        //Showing the number of images the user has completed out of the total
+        TextView textView = (TextView) findViewById(R.id.progressView);
+        textView.setText("PROGRESS: " + gameProgress + "/36");
 
         identifyButton = findViewById(R.id.identify_button);
+        //Starts of with the first game simulation which begins as soon as the activity was created.
+        showRandomCarImage();
+        //The timer will only be initiated during the time when only the timer option has been selected.
         if (timeOption){
             startTimer();
         }
 
-        showRandomCarImage();
-
+        //The button event which would then continue each game round based on the users input towards the submit button
         identifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**The following condition will be satisfied right after the user submits their
+                 * input which would then later move on towards the next condition, which would
+                 * commence the next round.
+                */
                 if (roundFinish) {
                    submitResponse();
                 }else{
                     showRandomCarImage();
                     gameProgress++;
-                    textView.setText("PROGRESS: " + gameProgress + "/30");
+                    textView.setText("PROGRESS: " + gameProgress + "/36");
                     identifyButton.setText("Identify");
                     roundFinish = true;
                     if (timeOption){
@@ -90,25 +101,24 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
             }
         });
     }
-
+/**When returning back to the home menu, it is ensure that the activated timer,
+does not run in the background.*/
     @Override
-    protected void onDestroy() {                // when going back to the main menu
+    protected void onDestroy() {
         super.onDestroy();
-
-        if (timeOption) {         // only if the countdown toggle had been turned on
+        if (timeOption) {
             if (gameTimer != null) {
-                gameTimer.cancel();           // stopping the countdown running in the background
+                gameTimer.cancel();
             }
         }
     }
-
+/*Method used to collect user's selection and validate if its the correct answer not, displayed in
+    the form of an alert*/
     public void submitResponse(){
         if (spinner.getSelectedItem().toString().equals(selectedCarMake)) {
-            displayToast("CORRECT!");
             displayMessage("CORRECT!");
         } else {
-            displayToast("WRONG!");
-            displayToast(selectedCarMake);
+            displayMessage("WRONG!");
         }
         identifyButton.setText("Next");
         roundFinish=false;
@@ -117,49 +127,30 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    private void startTimer() {
-        timerDisplay = findViewById(R.id.timeView_01);
-        timeRemainingInMillis = START_TIME_IN_MILLIS;
-
-
-        gameTimer = new CountDownTimer(timeRemainingInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                int secondsRemaining =  (int) ((timeRemainingInMillis / 1000));
-                timerDisplay.setVisibility(View.VISIBLE);
-                timerDisplay.setText(Integer.toString(secondsRemaining));
-                timeRemainingInMillis = millisUntilFinished;
-            }
-
-            @Override
-            public void onFinish() {
-                timerDisplay.setText(Integer.toString(0));
-                submitResponse();
-            }
-        }.start();
-    }
-
-
+    /*The method involved in randomizing car images*/
     public void showRandomCarImage() {
         Random rand = new Random();
         Integer randomIndex = 0;
         while (true) {
+            //A random value is picked out to represent the car image been selected
             randomIndex = rand.nextInt(cars.length);
+            //Following statement is active only at the end of the game. Where the user cannot play any further
             if(previousCarList.size() == cars.length){
-                imageView.setImageResource(R.drawable.ic_launcher_background);
-                selectedCarMake = "Over";
-                displayToast("Finished");
+                carMakeImageView.setVisibility(View.INVISIBLE);
+                identifyButton.setEnabled(false);
+                selectedCarMake = "empty";
+                endMenu();
                 break;
             }
-
+            /*Main logic to display the selected random image, this prevents previously selected
+            **images from being repeated during an entire game play*/
             if (!previousCarList.contains(randomIndex)) {
                 previousCarList.add(randomIndex);
-                imageView.setImageResource(cars[randomIndex].getCarImg());
+                carMakeImageView.setImageResource(cars[randomIndex].getCarImg());
                 selectedCarMake = cars[randomIndex].getCarMake();
                 break;
             }
         }
-
     }
 
     @Override
@@ -168,183 +159,98 @@ public class CarMakeActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent) {}
 
-    }
-
+    /**The following method is the main View used to displayed the result
+     * out come after each input from the user. Which is an alert-box, based on
+     * it's own custom layout. For this activity it is only designed to show
+     * if the answer is right or wrong. And displays the correct make if incorrect**/
     public void displayMessage(String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        // get inflater and inflate layour for dialogue
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_box_layout, null);
+        dialogView.setBackgroundResource(R.drawable.dialog_background);
+
+        // now set layout to dialog
+        dialogBuilder.setView(dialogView);
+
+        // create instance like this OR directly mentioned in layout
+        TextView outcome = (TextView) dialogView.findViewById(R.id.message_text);
+        TextView rightAnswer = (TextView) dialogView.findViewById(R.id.message_correct);
+
+        ImageView image = (ImageView) dialogView.findViewById(R.id.message_result);
+        outcome.setText(message);
+
+        if (message.equals("CORRECT!")) {
+            outcome.setTextColor(Color.GREEN);
+            image.setImageResource(R.drawable.open);
+
+        }else if(message.equals("WRONG!")){
+            outcome.setTextColor(Color.RED);
+            image.setImageResource(R.drawable.close);
+
+            rightAnswer.setText(selectedCarMake);
+            rightAnswer.setTextColor(Color.YELLOW);
+        }
+
+
+        AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
 
-    public void displayToast(String message) {
-        Toast toast = new Toast(getApplicationContext());
+    /** startTimer is used to automatically simulate a user submission towards submit, once
+     * the allocated time of 20secs has been reached* */
+    private void startTimer() {
+        timerDisplay = findViewById(R.id.timeView_01);
+        timeRemainingInMillis = START_TIME_MILLIS;
 
-        View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
-        TextView toastTextView = view.findViewById(R.id.textViewToast);
+        gameTimer = new CountDownTimer(timeRemainingInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //Converting remaining time from milliseconds to seconds
+                int secondsRemaining =  (int) ((timeRemainingInMillis / 1000));
+                timerDisplay.setVisibility(View.VISIBLE);
+                timerDisplay.setText(Integer.toString(secondsRemaining)+"sec");
+                if(secondsRemaining <= 9) {
+                    timerDisplay.setText("0"+Integer.toString(secondsRemaining)+"sec");
 
-        toastTextView.setText(message);
-        if (message.equals("Correct")) {
-            toastTextView.setBackgroundResource(R.drawable.toast_correct);
-        }else if(message.equals("Wrong")){
-            toastTextView.setBackgroundResource(R.drawable.toast_wrong);
-        }else{
-            toastTextView.setBackgroundResource(R.drawable.toast_answer);
-        }
-        toast.setView(view);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        //toast.show();
+                }
+                timeRemainingInMillis = millisUntilFinished;
+            }
 
-//        int toastDurationInMilliSeconds = 1000;
-//
-//        // Set the countdown to display the toast
-//        CountDownTimer toastCountDown;
-//        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1 /*Tick duration*/) {
-//            public void onTick(long millisUntilFinished) {
-//                toast.show();
-//            }
-//            public void onFinish() {
-//                toast.cancel();
-//            }
-//        };
-
-        // Show the toast and starts the countdown
-        toast.show();
-//        toastCountDown.start();
-
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                toast.cancel();
-//            }
-//        }, seconds);
-
+            @Override
+            public void onFinish() {
+                timerDisplay.setText("0"+Integer.toString(0)+"sec");
+                submitResponse();
+            }
+        }.start();
     }
+    /**The endMenu is initiated only at the end of the game rounds
+     * it provides the user two options to either restart playing the
+     * game or head back to the main menu.
+     * */
+    public void endMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you wish to play again?")
+                .setCancelable(false)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Ends the activity and returns back to the primary activity
+                        finish();
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Ends the activity but restarts the same activity from the start.
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                });
 
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
- /* Random rand = new Random();
-        int randomIndex = rand.nextInt(cars.length);
-        imageView.setImageResource(cars[randomIndex].getCarImg());
-        selectedCarImage = cars[randomIndex].getCarMake();*/
-        /*do{
-            nextImg = rand.nextInt(cars.length);}
-        while (nextImg == previousImg);
-                previousImg = nextImg;
-                imageView.setImageResource(cars[nextImg].getCarImg());
-                selectedCarImage = cars[nextImg].getCarMake();*/
-
-//    ImageView imageView;
-//    Button identifyButton;
-//    Random randomImg;
-//
-//    Integer[] carImgs = {
-//            R.drawable.audi_1,
-//            R.drawable.audi_2,
-//            R.drawable.audi_3,
-//            R.drawable.audi_4,
-//            R.drawable.audi_5,
-//            R.drawable.audi_6,
-//            R.drawable.audi_7,
-//            R.drawable.audi_8,
-//            R.drawable.audi_9,
-//            R.drawable.audi_10};
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_car_make);
-//        this.setTitle("Guess the Car Make");
-//
-//        imageView = findViewById(R.id.imageView_car);
-//        identifyButton = findViewById(R.id.submit_button);
-//        randomImg = new Random();
-//
-//        imageView.setImageResource(carImgs[randomImg.nextInt(carImgs.length)]);
-//
-//
-//        identifyButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                imageView.setImageResource(carImgs[randomImg.nextInt(carImgs.length)]);
-//            }
-//        });
-//
-//
-//    }
-//
-//}
-
-
-//
-//
-//    private static final String audiBrand = "Audi";
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        ImageView carImgDisplay = (ImageView) findViewById(R.id.imageView_car);
-//        Button nextButton = (Button) findViewById(R.id.submit_button);
-//        //showRandomImage();
-//        nextButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                carImgDisplay.setImageResource(cars[0].getCarImg());
-//            }
-//        });
-//
-//    }
-//
-//    Car car1 = new Car(R.drawable.audi_1,audiBrand);
-//    Car car2 = new Car(R.drawable.audi_2, audiBrand);
-//    Car car3 = new Car(R.drawable.audi_3, audiBrand);
-//    Car car4 = new Car(R.drawable.audi_4, audiBrand);
-//    Car car5 = new Car(R.drawable.audi_5, audiBrand);
-//
-//    Car[] cars = new Car[]{car1,car2,car3,car4,car5};
-//
-//    public void showRandomImage() {
-//        Random num = new Random();
-//        ImageView carImgDisplay = (ImageView) findViewById(R.id.imageView_car);
-//
-//        //carImgDisplay.setImageResource(cars[0].getCarImg());
-//        carImgDisplay.setImageResource(cars[num.nextInt(cars.length)].getCarImg());
-//
-//    }
-//
-//    public void shuffleImages() {
-//        Collections.shuffle(Arrays.asList(cars));
-//    }
-//
-//
-//}
-
-//    Car car1 = new Car(R.drawable.audi_1, carBrand[0]);
-//    Car car2 = new Car(R.drawable.audi_2, carBrand[0]);
-//    Car car3 = new Car(R.drawable.audi_3, carBrand[0]);
-//    Car car4 = new Car(R.drawable.audi_4, carBrand[0]);
-//    Car car5 = new Car(R.drawable.audi_5, carBrand[0]);
-//    Car car6 = new Car(R.drawable.audi_6, carBrand[0]);
-//    Car car7 = new Car(R.drawable.audi_7, carBrand[0]);
-//    Car car8 = new Car(R.drawable.audi_8, carBrand[0]);
-//    Car car9 = new Car(R.drawable.audi_9, carBrand[0]);
-//    Car car10 = new Car(R.drawable.audi_10, carBrand[0]);
-//    Car car11 = new Car(R.drawable.mercedes_1, carBrand[1]);
-//    Car car12 = new Car(R.drawable.mercedes_2, carBrand[1]);
-//    Car car13 = new Car(R.drawable.mercedes_3, carBrand[1]);
-//    Car car14 = new Car(R.drawable.mercedes_4, carBrand[1]);
-//    Car car15 = new Car(R.drawable.mercedes_5, carBrand[1]);
-//    Car car16 = new Car(R.drawable.mercedes_6, carBrand[1]);
-//    Car car17 = new Car(R.drawable.mercedes_7, carBrand[1]);
-//    Car car18 = new Car(R.drawable.mercedes_8, carBrand[1]);
-//    Car car19 = new Car(R.drawable.mercedes_9, carBrand[1]);
-//    Car car20 = new Car(R.drawable.mercedes_10, carBrand[1]);
-// public Car[] cars = new Car[]{car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11,car12,car13,car14,car15,car16,car17,car18,car19,car20};
